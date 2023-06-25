@@ -5,10 +5,15 @@
 #include <string>
 namespace cc::parser::tokens {
     struct Token {
+        enum ValidateResult {
+            Ok,
+            Fail,
+            Continue,
+        };
         virtual ~Token() = default;
         virtual TokenType type() const noexcept = 0;
         virtual std::string value() const noexcept = 0;
-        virtual bool validate(char c) const noexcept = 0;
+        virtual ValidateResult validate(char c) const noexcept = 0;
         virtual void add(char c) = 0;
     };
 }

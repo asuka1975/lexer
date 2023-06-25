@@ -9,8 +9,13 @@
 
 namespace cc::parser::rules {
     struct Rule {
+        enum SatisfiedResult {
+            Ok,
+            Fail,
+            Continue,
+        };
         virtual ~Rule() = default;
-        virtual bool satisfied(const std::string& token) const noexcept = 0;
+        virtual SatisfiedResult satisfied(const std::string& token) const noexcept = 0;
         virtual std::unique_ptr<tokens::Token> generate(char c) const = 0;
     };
 }

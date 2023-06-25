@@ -1,5 +1,6 @@
 #include "cc/parser/tokens/symbol.hpp"
 #include "cc/parser/rules/rule.hpp"
+#include "cc/parser/tokens/token.hpp"
 #include "cc/parser/tokens/token_type.hpp"
 #include <memory>
 
@@ -13,8 +14,9 @@ std::string cc::parser::tokens::Symbol::value() const noexcept {
     return m_value;
 }
 
-bool cc::parser::tokens::Symbol::validate(char c) const noexcept {
-    return m_rule->satisfied(m_value + c);
+cc::parser::tokens::Token::ValidateResult cc::parser::tokens::Symbol::validate(char c) const noexcept {
+    auto value = c ? m_value + c : m_value;
+    return static_cast<ValidateResult>(m_rule->satisfied(value));
 }
 
 void cc::parser::tokens::Symbol::add(char c) {

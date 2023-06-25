@@ -1,4 +1,5 @@
 #include "cc/parser/tokens/string.hpp"
+#include "cc/parser/tokens/token.hpp"
 #include "cc/parser/tokens/token_type.hpp"
 
 cc::parser::tokens::String::String(char c) : m_value(1, c), prev(0) {
@@ -13,12 +14,11 @@ std::string cc::parser::tokens::String::value() const noexcept {
     return m_value;
 }
 
-bool cc::parser::tokens::String::validate(char c) const noexcept {
-    if(prev == '\\') return true;
+cc::parser::tokens::Token::ValidateResult cc::parser::tokens::String::validate(char c) const noexcept {
+    if(prev == '\\') return Continue;
+    if(c == '"') return Ok;
 
-    if((prev == '"' && (m_value.size() == 2 || m_value[m_value.size() - 2] != '\\')) || c == '\n') return false;
-
-    return true;
+    return Continue;
 }
 
 void cc::parser::tokens::String::add(char c) {

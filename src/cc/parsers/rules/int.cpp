@@ -2,11 +2,12 @@
 
 #include <regex>
 #include <memory>
+#include "cc/parser/rules/rule.hpp"
 #include "cc/parser/tokens/int.hpp"
 
-bool cc::parser::rules::Int::satisfied(const std::string& token) const noexcept {
+cc::parser::rules::Rule::SatisfiedResult cc::parser::rules::Int::satisfied(const std::string& token) const noexcept {
     static std::regex re(R"(^([1-9]\d*|0[0-7]*|0x\d+)$)");
-    return std::regex_match(token, re);
+    return std::regex_match(token, re) ? Continue : Fail;
 }
 
 std::unique_ptr<cc::parser::tokens::Token> cc::parser::rules::Int::generate(char c) const {

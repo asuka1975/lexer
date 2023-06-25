@@ -21,6 +21,7 @@ int main() {
                          "    for(int i = 0; i < 10; i++) {\n"
                          "        s += i;\n"
                          "    }\n"
+                         "    s+++++;\n"
                          "}";
 
     std::list<std::unique_ptr<cc::parser::rules::Rule>> rules;

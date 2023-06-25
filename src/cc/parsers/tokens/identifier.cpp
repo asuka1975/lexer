@@ -1,4 +1,5 @@
 #include "cc/parser/tokens/identifier.hpp"
+#include "cc/parser/tokens/token.hpp"
 
 
 cc::parser::tokens::Identifier::Identifier(char c, std::unique_ptr<rules::Rule> rule)
@@ -12,8 +13,9 @@ std::string cc::parser::tokens::Identifier::value() const noexcept {
     return m_value;
 }
 
-bool cc::parser::tokens::Identifier::validate(char c) const noexcept {
-    return m_rule->satisfied(m_value + c);
+cc::parser::tokens::Token::ValidateResult cc::parser::tokens::Identifier::validate(char c) const noexcept {
+    auto value = c ? m_value + c : m_value;
+    return static_cast<ValidateResult>(m_rule->satisfied(value));
 }
 
 void cc::parser::tokens::Identifier::add(char c) {

@@ -11,7 +11,7 @@ namespace cc::parser::tokens {
         Whitespace(char c, std::unique_ptr<rules::Rule> rule);
         TokenType type() const noexcept override;
         std::string value() const noexcept override;
-        bool validate(char c) const noexcept override;
+        ValidateResult validate(char c) const noexcept override;
         void add(char c) override;
     private:
         std::string m_value;
