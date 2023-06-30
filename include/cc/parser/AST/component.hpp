@@ -6,7 +6,7 @@
 namespace cc::parser::AST {
     struct Component {
         virtual ~Component() = default;
-        std::string compile() const;
+        virtual std::string compile() const = 0;
     };
 }
 
