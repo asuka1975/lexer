@@ -1,0 +1,7 @@
+#ifndef CC_PARSER_AST_RULES_FUNCTION_HPP
+#define CC_PARSER_AST_RULES_FUNCTION_HPP
+
+
+
+
+#endif

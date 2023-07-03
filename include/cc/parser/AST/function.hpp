@@ -9,11 +9,12 @@
 namespace cc::parser::AST {
     class Function : public virtual Component {
     public:
+        Function(std::unique_ptr<Component> returnType, std::string name, std::vector<std::unique_ptr<Component>> args, std::vector<std::unique_ptr<Component>> body);
         std::string compile() const override;
     private:
         std::unique_ptr<Component> returnType;
         std::string name;
-        std::vector<std::string> args;
+        std::vector<std::unique_ptr<Component>> args;
         std::vector<std::unique_ptr<Component>> body;
     };
 }
