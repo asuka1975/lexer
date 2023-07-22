@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.22)
 
-project(cc)
+project(lexer)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
@@ -10,5 +10,5 @@ list(FILTER SOURCES EXCLUDE REGEX ".*cmake-build.*$")
 message("source files: ${SOURCES}")
 
 
-add_executable(cc main.cpp ${SOURCES})
-target_include_directories(cc PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+add_executable(lexer main.cpp ${SOURCES})
+target_include_directories(lexer PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)

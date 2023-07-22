@@ -1,12 +1,12 @@
-#include "cc/parser/rule_set.hpp"
-#include "cc/parser/rules/alphabet.hpp"
-#include "cc/parser/rules/rule.hpp"
-#include "cc/parser/rules/string.hpp"
-#include "cc/parser/rules/int.hpp"
-#include "cc/parser/rules/symbol.hpp"
-#include "cc/parser/rules/unsigned_int.hpp"
-#include "cc/parser/rules/whitespace.hpp"
-#include "cc/parser/tokenizer.hpp"
+#include "lexer/parser/rule_set.hpp"
+#include "lexer/parser/rules/alphabet.hpp"
+#include "lexer/parser/rules/rule.hpp"
+#include "lexer/parser/rules/string.hpp"
+#include "lexer/parser/rules/int.hpp"
+#include "lexer/parser/rules/symbol.hpp"
+#include "lexer/parser/rules/unsigned_int.hpp"
+#include "lexer/parser/rules/whitespace.hpp"
+#include "lexer/parser/tokenizer.hpp"
 #include <iostream>
 #include <memory>
 #include <vector>
@@ -24,7 +24,7 @@ int main() {
                          "    s+++++;\n"
                          "}";
 
-    std::list<std::unique_ptr<cc::parser::rules::Rule>> rules;
+    std::list<std::unique_ptr<lexer::parser::rules::Rule>> rules;
     std::vector<std::string> symbols = {
             "(", ")", "{", "}", ";", ",", ":", "?",
             "+", "-", "*", "/", "%", "&", "|", "^", "~", "!",
@@ -33,21 +33,21 @@ int main() {
             "+=", "-=", "*=", "/=", "%=", "&=", "|=", "^=",
     };
 
-    rules.push_back(std::make_unique<cc::parser::rules::Alphabet>());
-    rules.push_back(std::make_unique<cc::parser::rules::String>());
-    rules.push_back(std::make_unique<cc::parser::rules::Int>());
-    rules.push_back(std::make_unique<cc::parser::rules::UnsignedInt>());
+    rules.push_back(std::make_unique<lexer::parser::rules::Alphabet>());
+    rules.push_back(std::make_unique<lexer::parser::rules::String>());
+    rules.push_back(std::make_unique<lexer::parser::rules::Int>());
+    rules.push_back(std::make_unique<lexer::parser::rules::UnsignedInt>());
     for(auto& symbol : symbols) {
-        rules.push_back(std::make_unique<cc::parser::rules::Symbol>(symbol));
+        rules.push_back(std::make_unique<lexer::parser::rules::Symbol>(symbol));
     }
-    rules.push_back(std::make_unique<cc::parser::rules::Whitespace>());
+    rules.push_back(std::make_unique<lexer::parser::rules::Whitespace>());
 
-    auto ruleSet = std::make_unique<cc::parser::RuleSet>(std::move(rules));
-    cc::parser::Tokenizer tokenizer(std::move(ruleSet));
+    auto ruleSet = std::make_unique<lexer::parser::RuleSet>(std::move(rules));
+    lexer::parser::Tokenizer tokenizer(std::move(ruleSet));
 
     for(auto c : source) {
         auto state = tokenizer.read(c);
-        if(state == cc::parser::Tokenizer::TokenizeState::Finish) {
+        if(state == lexer::parser::Tokenizer::TokenizeState::Finish) {
             auto token = tokenizer.pop();
             std::cout << " " << token->value() << std::endl;
         }
